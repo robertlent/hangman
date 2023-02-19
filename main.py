@@ -73,13 +73,25 @@ class Game():
         else:
             self.wrong_letters.append(guess)
 
-            if len(self.wrong_letters) == 7:
-                self.clear()
+            if len(self.wrong_letters) >= 7:
+                if display.count('_') == 1 and len(self.wrong_letters) == 7:
+                    self.clear()
 
-                self.draw_hangman(self.wrong_letters)
-                print(
-                    f"You've lost!\nThe word was: {word}.\n\nBetter luck next time!\n")
-                exit()
+                    print(" ".join(display))
+                    self.draw_hangman(self.wrong_letters)
+                    print(
+                        f"\nGuessed letters not in the word: {', '.join(self.wrong_letters)}")
+                    print(
+                        "\nYou are so close to solving the word and saving your stick man!")
+                    input("Press enter for one more guess.\n")
+                    self.guess_letter(display, word)
+                else:
+                    self.clear()
+
+                    self.draw_hangman(self.wrong_letters)
+                    print(
+                        f"You've lost!\nThe word was: {word}.\n\nBetter luck next time!\n")
+                    exit()
 
         self.check_win(display, word)
 
@@ -108,23 +120,30 @@ class Game():
             =========''', '''
             +---+
             |   |
-            O   |
-           /|   |
+           \O   |
+            |   |
                 |
                 |
             =========''', '''
             +---+
             |   |
-            O   |
-           /|\  |
+           \O/  |
+            |   |
                 |
                 |
             =========''', '''
             +---+
             |   |
-            O   |
-           /|\  |
+           \O/  |
+            |   |
            /    |
+                |
+            =========''', '''
+            +---+
+            |   |
+           \O/  |
+            |   |
+           / \  |
                 |
             =========''', '''
             +---+
